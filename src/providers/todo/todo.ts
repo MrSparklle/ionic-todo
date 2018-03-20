@@ -10,6 +10,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class TodoProvider {
   private todos = [];
+  private archivedTodos = [];
 
   constructor(public http: HttpClient) {
     console.log('Hello TodoProvider Provider');
@@ -17,6 +18,16 @@ export class TodoProvider {
 
   getTodos() {
     return this.todos;
+  }
+
+  getArchivedTodos() {
+    return this.archivedTodos;
+  }
+
+  archiveTodo(todoIndex) {
+    let todoToBeArchived = this.todos[todoIndex];
+    this.todos.splice(todoIndex, 1); // remove o todo do array
+    this.archivedTodos.push(todoToBeArchived); // adiciona o todo excluido no array dos arquivados
   }
 
   addTodo (todo) {
